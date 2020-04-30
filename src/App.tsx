@@ -1,6 +1,6 @@
 import React, { Fragment, useState,useRef } from 'react';
 
-interface ITask {
+interface ITaskState {
 	name: string;
 	done: boolean;
 }
@@ -10,7 +10,7 @@ type FormEvent = React.FormEvent<HTMLFormElement>;
 function App(): JSX.Element {
     const taskInput = useRef<HTMLInputElement>(null);
 	const [newTask, setnewTask] = useState<string>("");
-	const [tasks, setTasks] = useState<ITask[]>([]);
+	const [tasks, setTasks] = useState<ITaskState[]>([]);
 
 	const handleSubmit = (e: FormEvent):void => {
 		e.preventDefault();
@@ -20,16 +20,16 @@ function App(): JSX.Element {
 		taskInput.current?.focus()
 	}
 	const addTask = (name: string):void => {
-		const newTasks: ITask[] = [...tasks, { name, done: false }]
+		const newTasks: ITaskState[] = [...tasks, { name, done: false }]
 		setTasks(newTasks);
 	}
 	const toggleDoneTask=(i:number):void=>{
-			const newTasks:ITask[]=[...tasks]
+			const newTasks:ITaskState[]=[...tasks]
 			newTasks[i].done=!newTasks[i].done;
 			setTasks(newTasks);
 	}
 	const removeNewTask=(i:number):void=>{
-			const newTasks:ITask[]=[...tasks];
+			const newTasks:ITaskState[]=[...tasks];
 			newTasks.splice(i,1);
 			setTasks(newTasks);
 	}
@@ -53,7 +53,7 @@ function App(): JSX.Element {
 							</div>
 						</div>
 						{
-							tasks.map((task: ITask, i: number) => {
+							tasks.map((task: ITaskState, i: number) => {
 								return (
 									<div key={i} className="card">
 										<div  className="card-body mt-2">
